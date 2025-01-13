@@ -30,7 +30,6 @@ class ConnectDB:
         """
         if not self.cursor:
             raise ConnectionError("Сначала установите соединение с базой данных с помощью метода connect().")
-
         try:
             if params:
                 self.cursor.execute(query, params)
@@ -40,10 +39,22 @@ class ConnectDB:
                 return self.cursor.fetchall()
             else:
                 self.connection.commit()
-            return self.cursor.fetchall()
         except sqlite3.Error as e:
             print(f"Ошибка выполнения запроса: {e}")
             raise
+
+    def test_query(self, query, params=None):
+        self.cursor.execute("BEGIN TRANSACTION")
+        try:
+            self.cursor.execute(query, params)
+            # Если всё корректно, просто отмените транзакцию
+            self.cursor.execute("ROLLBACK")
+            print('все ОК')
+        except sqlite3.OperationalError as e:
+            print(f"Ошибка выполнения запроса: {e}")
+            self.cursor.execute("ROLLBACK")
+            print('недопустимая операция')
+
 
     def close(self):
         # Закрывает соединение с базой данных.
@@ -58,6 +69,6 @@ class ConnectDB:
             cleaned_tables = [x[0] for x in tables] # очищаем список таблиц от лишних членов
         except Exception as e:
             print(f"Ошибка: {e}")
-        choice = questionary.select("Получены таблицы:",choices=cleaned_tables).ask()
+        choice = questionary.select("The following tables were found. Choose any one:",choices=cleaned_tables).ask()
         self.close()
         return choice
