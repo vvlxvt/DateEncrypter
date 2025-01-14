@@ -34,20 +34,20 @@ DataEncrypter/
     pip install cryptography questionary pyinstaller pytest
     ```
 
-## Запуск
+## Run
 
-Запустите приложение с помощью команды:
+Run the application with the command:
    ```bash
    python app/main.py
    ```
-## Конфигурация
+## Configuration
 
 ```markdown
 - need to change fields SQL query if your database contains other fields
 - encryption field is selected manually in the running application
 - use read_csv.py to export your *.csv data to *.db SQLite file 
 ```
-## Примеры использования
+## Usage examples
 
 **Testing**
 
@@ -58,9 +58,9 @@ Run tests with pytest:
 pytest -v tests\test_check_field_type.py
 ```
 
-### Замечание
+### Note
 add __init.py__ in app/ for testing and delete for *.exe compilation due to pyinstaller can work unexpected
 
-## Контакты
+## Contacts
 
 Если у вас есть вопросы, пишите на [vvlxvt@gmail.com](vvlxvt@gmail.com).
