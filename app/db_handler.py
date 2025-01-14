@@ -4,10 +4,6 @@ import questionary
 
 class ConnectDB:
     def __init__(self, db_path):
-        """
-        Инициализация класса с указанием пути к базе данных.
-        :param db_path: Путь к файлу базы данных.
-        """
         self.db_path = Path(db_path)
         self.connection = None
         self.cursor = None
@@ -16,20 +12,14 @@ class ConnectDB:
         try:
             self.connection = sqlite3.connect(self.db_path)
             self.cursor = self.connection.cursor()
-            # print(f"Успешно подключено к базе данных: {self.db_path}")
         except sqlite3.Error as e:
             print(f"Ошибка при подключении к базе данных: {e}")
             raise
 
     def execute_query(self, query, params=None):
-        """
-        Выполняет SQL-запрос.
-        :param query: SQL-запрос для выполнения.
-        :param params: Параметры для подстановки в запрос.
-        :return: Результаты запроса, если это SELECT; иначе None.
-        """
+
         if not self.cursor:
-            raise ConnectionError("Сначала установите соединение с базой данных с помощью метода connect().")
+            raise ConnectionError("Сначала установите соединение с базой данных.")
         try:
             if params:
                 self.cursor.execute(query, params)
@@ -43,21 +33,8 @@ class ConnectDB:
             print(f"Ошибка выполнения запроса: {e}")
             raise
 
-    def test_query(self, query, params=None):
-        self.cursor.execute("BEGIN TRANSACTION")
-        try:
-            self.cursor.execute(query, params)
-            # Если всё корректно, просто отмените транзакцию
-            self.cursor.execute("ROLLBACK")
-            print('все ОК')
-        except sqlite3.OperationalError as e:
-            print(f"Ошибка выполнения запроса: {e}")
-            self.cursor.execute("ROLLBACK")
-            print('недопустимая операция')
-
 
     def close(self):
-        # Закрывает соединение с базой данных.
         if self.connection:
             self.connection.close()
 

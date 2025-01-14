@@ -8,7 +8,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 
 def generate_key(password: str) -> bytes:
-    salt = b'\x00' * 16  # Пример соли
+    salt = b'\x00' * 16  # соль
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
@@ -58,7 +58,6 @@ import os
 def is_db_file(file_path):
     """
     Проверяет, является ли выбранный файл файлом с расширением .db.
-
     :param file_path: Путь к файлу, который нужно проверить.
     :return: True, если файл имеет расширение .db, иначе False.
     """

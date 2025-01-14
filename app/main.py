@@ -15,7 +15,7 @@ def crypt_func(db):
         message = "Passwords have been successfully decrypted!"
     elif choice == "quit":
         message = "Quit"
-        sys.exit()  # Завершает выполнение программы
+        sys.exit()
 
     db.connect()
     query_fields = f'PRAGMA table_info({table})'
@@ -42,7 +42,6 @@ def crypt_func(db):
 
     db.close()
 
-# Пример использования:
 if __name__ == "__main__":
     db_path = get_path_db()
     db = ConnectDB(db_path)
