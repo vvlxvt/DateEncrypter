@@ -28,7 +28,7 @@ def crypt_func(db):
     notes = db.execute_query(query)
     if (is_encrypted(notes[0][1]) == True and choice == 'encrypt') or (is_encrypted(notes[0][1]) != True and choice ==
                                                                        'decrypt'):
-        questionary.press_any_key_to_continue('data is required to be decrypted. Press any key to quit').ask()
+        questionary.press_any_key_to_continue('need to change the method to the opposite one. Press any key to quit').ask()
         sys.exit()
 
 
